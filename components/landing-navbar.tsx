@@ -64,6 +64,25 @@ export const Navbar = () => {
                     <div className="md:hidden pb-4">
                         <div className="flex flex-col gap-4 mt-4">
                             <Link
+                                href=""
+                            >
+                                <Button
+                                    className='cursor-pointer w-full text-slate-300'
+                                    variant='outline'
+                                >
+                                    Log In
+                                </Button></Link>
+                            <Link
+                                href=''
+                            >
+                                <Button
+                                    className='cursor-pointer w-full bg-red-800 text-slate-50'
+                                    variant='secondary'
+                                >
+                                    Sign Up
+                                </Button>
+                            </Link>
+                            <Link
                                 href={'#contact-session'}
                                 className="text-emerald-400 hover:text-emerald-300 transition-colors font-medium"
                                 onClick={(e) => {
@@ -76,7 +95,7 @@ export const Navbar = () => {
                             >
 
                                 <Button
-                                    className='cursor-pointer'
+                                    className='cursor-pointer w-full'
                                     variant='secondary'
                                 >
                                     Contact Us
