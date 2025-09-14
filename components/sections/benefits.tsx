@@ -213,7 +213,7 @@ export default function BenefitsSection() {
                         className="mt-10"
                         initial={{ opacity: 0, scale: 1 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        whileHover={{ y: -5, scale: 1.01 }}
+                        whileHover={{ y: -1, scale: 1.01 }}
                     >
                         <Link
                             href={'#price-options'}
