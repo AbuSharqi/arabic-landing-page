@@ -58,7 +58,6 @@ const itemVariants = {
 
 export default function PrimaryLanding() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState('traditional');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">

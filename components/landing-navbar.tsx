@@ -6,16 +6,7 @@ import Link from "next/link";
 
 export const Navbar = () => {
     const router = useRouter();
-    const [loading, setLoading] = useState<boolean>(true);
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const [confirmPage, setConfirmPage] = useState<boolean>(false)
-
-    useEffect(() => {
-        // Check for permanent submission flag
-        const hasSubmitted = localStorage.getItem('submission_made');
-        setConfirmPage(!!hasSubmitted);
-        setLoading(false);
-    }, []);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
         <nav className="mx-auto rounded-md sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
@@ -35,20 +26,25 @@ export const Navbar = () => {
 
                         {/* Right side - Desktop Menu */}
                         <div className="hidden md:flex items-center gap-6">
-                            <Button
-                                onClick={() => router.push('/auth/login')}
-                                className='cursor-pointer'
-                                variant='outline'
+                            <Link
+                                href=""
                             >
-                                Log In
-                            </Button>
-                            <Button
-                                onClick={() => router.push('auth/signup')}
-                                className='cursor-pointer'
-                                variant='secondary'
+                                <Button
+                                    className='cursor-pointer'
+                                    variant='outline'
+                                >
+                                    Log In
+                                </Button></Link>
+                            <Link
+                                href=''
                             >
-                                Sign Up
-                            </Button>
+                                <Button
+                                    className='cursor-pointer'
+                                    variant='secondary'
+                                >
+                                    Sign Up
+                                </Button>
+                            </Link>
                         </div>
                     </div>
 
