@@ -55,8 +55,17 @@ export default function PricingPlan({ plan }: { plan: PricingPlan }) {
             ${plan.originalPrice}
           </span>
         )}
-        <span className="text-4xl font-bold text-orange-600 dark:text-orange-400">${plan.price}</span>
-        <span className="text-orange-500 dark:text-orange-300">/month</span>
+        {plan.price == "0" && (
+          <>
+            <span className="text-4xl font-bold text-orange-600 dark:text-orange-400">Free</span>
+          </>
+        )}
+        {plan.price != "0" && (
+          <>
+            <span className="text-4xl font-bold text-orange-600 dark:text-orange-400">${plan.price}</span>
+            <span className="text-orange-500 dark:text-orange-300">/month</span>
+          </>
+        )}
       </div>
 
       <ul className="space-y-4 mb-8 flex-grow">

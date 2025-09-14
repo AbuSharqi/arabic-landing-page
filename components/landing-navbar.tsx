@@ -30,7 +30,7 @@ export const Navbar = () => {
                                 href=""
                             >
                                 <Button
-                                    className='cursor-pointer'
+                                    className='cursor-pointer text-slate-300'
                                     variant='outline'
                                 >
                                     Log In
@@ -39,7 +39,7 @@ export const Navbar = () => {
                                 href=''
                             >
                                 <Button
-                                    className='cursor-pointer'
+                                    className='cursor-pointer bg-red-800 text-slate-50'
                                     variant='secondary'
                                 >
                                     Sign Up
