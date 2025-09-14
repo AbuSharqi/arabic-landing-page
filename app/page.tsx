@@ -3,27 +3,14 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star, Moon, Sword, Shield, BookText, Quote, User } from 'lucide-react';
-import { CheckCircle2 } from 'lucide-react';
-import LandingNavbar from "@/components/landing-navbar";
+import { Navbar } from "@/components/landing-navbar";
 import { useRouter } from "next/navigation";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { DemoAlert } from "@/components/demo-alert";
-import { Keyboard } from 'lucide-react';
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import PricingPlan from "@/components/pricing-plan";
 import { pricingPlans } from "@/lib/pricing-plans";
-import {
-  Clock, Frown, TrendingDown, RefreshCw, Lightbulb,
-  Rocket, Target, FastForward, MessageCircle, Award,
-  Flag, Gauge, CheckCircle, Trophy, BarChart
-} from 'lucide-react';
-import ProfilePicturePlaceholder from "@/lib/profile-picture-placeholder.jpg";
-import Link from "next/link";
 import HeroSection from "@/components/sections/hero";
-import ChallengesSection from "@/components/sections/challenges";
-import DemoSection from "@/components/sections/demo";
-import TestimonialsSection from "@/components/sections/testimonials";
+import BenefitsSection from "@/components/sections/benefits";
 
 const faqs = [
   {
@@ -72,37 +59,36 @@ const itemVariants = {
 export default function PrimaryLanding() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('traditional');
-  const [showLeaderboard, setShowLeaderboard] = useState(false);
-
-  // Keyboard shortcut
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'l' || e.key === 'L') {
-        setShowLeaderboard(prev => !prev);
-      }
-    };
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, []);
 
   return (
-    <div className="min-h-screen dark:bg-slate-900">
-      <LandingNavbar />
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+      {/* Font import for Arabic text */}
+      <style jsx global>{`
+          @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+          .font-amiri {
+            font-family: 'Amiri', serif;
+          }
+          
+          @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-10px, -15px) rotate(-5deg); }
+            50% { transform: translate(5px, 10px) rotate(5deg); }
+            75% { transform: translate(-5px, 15px) rotate(-3deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+          }
+          
+          .floating-letter {
+            animation: float 15s infinite linear;
+            animation-delay: ${Math.random() * 5}s;
+          }
+        `}</style>
 
-      {/* Corner Disclaimer */}
-      <DemoAlert />
+      <Navbar />
 
-      {/* Hero Section */}
-      <HeroSection />
-
-      {/* Problems and Solutions Section */}
-      <ChallengesSection />
-
-      {/* Teacher Profile */}
-      <DemoSection />
-
-      {/* Testimonials Section */}
-      <TestimonialsSection />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <HeroSection />
+        <BenefitsSection />
+      </div>
 
       <motion.section
         id="pricing"
@@ -113,7 +99,10 @@ export default function PrimaryLanding() {
         transition={{ duration: 0.7 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div
+            id='price-options'
+            className="text-center mb-12"
+          >
             <h2 className="text-3xl font-bold text-orange-900 dark:text-white mb-4">
               Transform Your Learning
             </h2>
@@ -122,7 +111,9 @@ export default function PrimaryLanding() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 items-stretch mb-20">
+          <div
+            className="grid md:grid-cols-3 gap-8 items-stretch mb-20"
+          >
             {pricingPlans.map((plan, index) => (
               <PricingPlan key={index} plan={plan} />
             ))}
@@ -168,6 +159,7 @@ export default function PrimaryLanding() {
           </div>
         </div>
       </motion.section>
+      <DemoAlert />
     </div>
   );
 }

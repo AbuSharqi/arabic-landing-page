@@ -10,7 +10,7 @@ export interface PricingPlan {
 export const pricingPlans: PricingPlan[] = [
     {
         title: "Basic Foundations",
-        price: "49",
+        price: "0",
         features: [
             "Weekly Tajweed Lessons",
             "Basic Makharij Correction",
@@ -21,7 +21,7 @@ export const pricingPlans: PricingPlan[] = [
     },
     {
         title: "Comprehensive Learning",
-        price: "99",
+        price: "30",
         features: [
             "All Basic Features",
             "Daily Practice Sessions",
@@ -33,8 +33,8 @@ export const pricingPlans: PricingPlan[] = [
     },
     {
         title: "Elite Mastery",
-        price: "149",
-        originalPrice: "199",
+        price: "75",
+        originalPrice: "100",
         discount: "25%",
         features: [
             "Everything in Other Plans",

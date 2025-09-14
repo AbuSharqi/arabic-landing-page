@@ -1,116 +1,95 @@
-// components/Navbar.tsx
-"use client";
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { School, X, Menu, GraduationCap } from 'lucide-react';
-import { Button } from "@/components/ui/button";
-//import { AuthentificationCheck } from '@/lib/auth-check';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useEffect, useState } from "react"
+import { BookA, X, Menu } from "lucide-react"
+import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
-export default function LandingNavbar() {
+export const Navbar = () => {
     const router = useRouter();
-    const [user, setUser] = useState<any>(null);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    //AuthentificationCheck({ setStatus: setUser });
+    const [loading, setLoading] = useState<boolean>(true);
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [confirmPage, setConfirmPage] = useState<boolean>(false)
 
-    const navItems = [
-        { name: 'What We Offer', href: '#program' },
-        { name: 'Testimonials', href: '#testimonials' },
-    ];
+    useEffect(() => {
+        // Check for permanent submission flag
+        const hasSubmitted = localStorage.getItem('submission_made');
+        setConfirmPage(!!hasSubmitted);
+        setLoading(false);
+    }, []);
 
     return (
-        <motion.nav
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            className="fixed w-full bg-transparent backdrop-blur-lg border-b border-indigo-100 z-50 shadow-sm"
-        >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    {/* Logo Section */}
-                    <div className="flex items-center gap-3">
-                        <GraduationCap className="h-8 w-8 z-20 text-violet-600" />
-                        <span className="text-2xl font-bold bg-gradient-to-br from-indigo-600 to-violet-600 bg-clip-text text-transparent tracking-tight">
-                            Hidaya Academy
-                        </span>
+        <nav className="mx-auto rounded-md sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="relative flex items-center justify-center h-16">
+                    <div className="flex items-center gap-5">
+                        {/* Left side - Logo */}
+                        <div
+                            className="flex items-center gap-2"
+                            onClick={() => router.push('/')}
+                        >
+                            <BookA className="w-6 h-6 text-red-600" />
+                            <span className="mr-5 font-semibold text-lg bg-gradient-to-r from-red-600 to-yellow-600 bg-clip-text text-transparent">
+                                Al Mukhtasarat Institute
+                            </span>
+                        </div>
+
+                        {/* Right side - Desktop Menu */}
+                        <div className="hidden md:flex items-center gap-6">
+                            <Button
+                                onClick={() => router.push('/auth/login')}
+                                className='cursor-pointer'
+                                variant='outline'
+                            >
+                                Log In
+                            </Button>
+                            <Button
+                                onClick={() => router.push('auth/signup')}
+                                className='cursor-pointer'
+                                variant='secondary'
+                            >
+                                Sign Up
+                            </Button>
+                        </div>
                     </div>
 
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center gap-8">
-                        {navItems.map((item) => (
+                    {/* Mobile Menu Button */}
+                    <div className="absolute right-4 md:hidden">
+                        <button
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            className="text-gray-600 dark:text-gray-300 hover:text-purple-600"
+                        >
+                            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                        </button>
+                    </div>
+                </div>
+
+                {/* Mobile Menu Dropdown */}
+                {isMenuOpen && (
+                    <div className="md:hidden pb-4">
+                        <div className="flex flex-col gap-4 mt-4">
                             <Link
-                                key={item.name}
-                                href={item.href}
-                                className="relative group text-indigo-700 font-medium transition-all"
+                                href={'#contact-session'}
+                                className="text-emerald-400 hover:text-emerald-300 transition-colors font-medium"
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    const target = document.querySelector(item.href);
+                                    const target = document.querySelector('#contact-session');
                                     if (target) {
                                         target.scrollIntoView({ behavior: 'smooth' });
                                     }
                                 }}
                             >
-                                {item.name}
-                                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-500 to-violet-500 transition-all group-hover:w-full"></span>
-                            </Link>
-                        ))}
-                    </div>
 
-                    {/* Mobile Menu Button */}
-                    <button
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className="md:hidden p-2 rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-100"
-                    >
-                        <Menu className="h-6 w-6" />
-                    </button>
-                </div>
-            </div>
-
-            {/* Mobile Menu */}
-            {isMenuOpen && (
-                <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="md:hidden w-full bg-white border-b shadow-lg"
-                >
-                    <div className="px-4 pt-2 pb-5 space-y-3">
-                        <div className="flex items-center justify-between py-3">
-                            <div className="flex items-center gap-3">
-                                <School className="h-7 w-7 text-indigo-600" />
-                                <span className="text-xl font-bold text-indigo-900">Hidaya Academy</span>
-                            </div>
-                            <button
-                                onClick={() => setIsMenuOpen(false)}
-                                className="p-2 rounded-full bg-indigo-50 text-indigo-600 hover:bg-indigo-100"
-                            >
-                                <X className="h-5 w-5" />
-                            </button>
-                        </div>
-
-                        <div className="space-y-1">
-                            {navItems.map((item) => (
-                                <Link
-                                    key={item.name}
-                                    href={item.href}
-                                    className="block px-4 py-3 text-indigo-900 hover:bg-indigo-50 rounded-lg transition-colors"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        setIsMenuOpen(false);
-                                        const target = document.querySelector(item.href);
-                                        if (target) {
-                                            target.scrollIntoView({ behavior: 'smooth' });
-                                        }
-                                    }}
+                                <Button
+                                    className='cursor-pointer'
+                                    variant='secondary'
                                 >
-                                    {item.name}
-                                </Link>
-                            ))}
+                                    Contact Us
+                                </Button>
+                            </Link>
                         </div>
                     </div>
-                </motion.div>
-            )}
-        </motion.nav>
-    );
+                )}
+            </div>
+        </nav>
+    )
 }

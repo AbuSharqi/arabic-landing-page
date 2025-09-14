@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hidaya Academy",
+  title: "Al Mukhtasarat Institute",
   description: "Your Gateway to Islamic Knowledge",
 };
 
